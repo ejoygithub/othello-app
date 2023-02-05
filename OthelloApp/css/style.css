@@ -1,0 +1,43 @@
+/* オセロ盤 */
+
+/* 一番下のセルの下のスペースが気になる */
+
+.board {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    position: relative;
+    width: 800px;
+    height: 800px;
+    background-color: #fff;
+    border: 10px solid #000000;
+    /* border-radius: 5%; */
+}
+
+.cell {
+    display: block;
+    cursor: pointer;
+    height: calc((100% - 14px) / 8);
+    width: calc((100% - 14px) / 8);
+    background-color: #008000;
+}
+
+/* 黒白の石 */
+
+.black {
+    margin: 5px auto;
+    z-index: 1;
+    width: calc(100% - 10px);
+    height: calc(100% - 10px);
+    border-radius: 50%;
+    background: #000;
+}
+
+.white {
+    margin: 5px auto;
+    z-index: 1;
+    width: calc(100% - 10px);
+    height: calc(100% - 10px);
+    border-radius: 50%;
+    background: #fff;
+}
