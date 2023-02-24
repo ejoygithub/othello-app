@@ -7,13 +7,15 @@
         [0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 1, 2, 0, 0, 0],
-        [0, 0, 0, 2, 1, 0, 0, 0],
+        [0, 0, 0, 4, 3, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0],
     ];
     let turn = 0;
+    let playerNum = 4;
     let ownColorValue = 1;
+    let ownColors = ["white", "black", "blue", "yellow"];
 
     cells.forEach((cell) => {
         const desc = document.createElement("div");
@@ -27,10 +29,10 @@
         let BranchData = [
             [0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 3, 0, 0, 0, 0, 0],
+            [0, 0, 0, 1, 2, 0, 0, 0],
+            [0, 0, 0, 2, 3, 0, 0, 0],
+            [0, 0, 0, 0, 0, 1, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0],
         ];
@@ -96,15 +98,9 @@
 
     cells.forEach((cell, index) => {
         cell.addEventListener("click", () => {
-            switch (turn % 2) {
-                case 0:
-                    ownColorValue = 1;
-                    break;
-                case 1:
-                    ownColorValue = 2;
-                    break;
-            }
+            ownColorValue = turn % playerNum + 1;
             turn++;
+            console.log(ownColorValue);
 
             descsData = [
                 [...reverseDiscs(descsData, index, ownColorValue)[0]],
@@ -124,27 +120,13 @@
                 y = Math.floor(index / 8);
                 const cellChild = cell.firstChild;
 
-                switch (descsData[y][x]) {
-                    case 1:
-                        if (cellChild.classList.contains("black")) {
-                            cellChild.classList.remove("black");
-                        }
-                        cellChild.classList.add("white");
-                        break;
-                    case 2:
-                        if (cellChild.classList.contains("white")) {
-                            cellChild.classList.remove("white");
-                        }
-                        cellChild.classList.add("black");
-                        break;
-                    default:
-                        if (cellChild.classList.contains("black")) {
-                            cellChild.classList.remove("black");
-                        }
-                        if (cellChild.classList.contains("white")) {
-                            cellChild.classList.remove("white");
-                        }
-                        break;
+                for (let i = 0; i < playerNum; i++) {
+                    if (descsData[y][x] === i + 1) {
+                        cellChild.classList.add(ownColors[i]);
+                    }
+                    if (descsData[y][x] !== i + 1) {
+                        cellChild.classList.remove(ownColors[i]);
+                    }
                 }
             });
             console.log(descsData);
